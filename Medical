@@ -22,7 +22,7 @@ CREATE TABLE Doctors (
 );
 
 
-INSERT INTO Doctors VALUES (1, 'Dr.Kundu', 'Cardiology', '9134567876', 'kundu@example.com')
+INSERT INTO Doctors VALUES (1, 'Dr.Kundu', 'Medical Specialist', '9134567876', 'kundu@example.com')
 INSERT INTO Doctors VALUES (2, 'Dr.Dhawan', 'Neurology', '9087654532', 'dhawan@example.com')
 
 CREATE TABLE Appointments (
