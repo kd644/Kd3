@@ -1,4 +1,4 @@
--- Create the Patients table
+
 CREATE TABLE Patients (
     PatientId INT PRIMARY KEY,
     PatientName VARCHAR(100) NOT NULL,
@@ -9,13 +9,10 @@ CREATE TABLE Patients (
     Email VARCHAR(100) UNIQUE
 );
 
--- Insert dummy data into Patients table
-INSERT INTO Patients (PatientId, PatientName, DateOfBirth, Gender, Address, PhoneNumber, Email)
-VALUES 
-(1, 'John Doe', '1980-01-01', 'Male', '123 Elm Street', '123-456-7890', 'johndoe@example.com'),
-(2, 'Jane Smith', '1990-02-02', 'Female', '456 Oak Avenue', '987-654-3210', 'janesmith@example.com');
 
--- Create the Doctors table
+INSERT INTO Patients VALUES (1, 'Ram', '12/10/1998', 'Male', 'Rampurhat','1234567891', 'ram@example.com')
+INSERT INTO Patients VALUES (2, 'Sam', '01/01/1997', 'Male', 'Bolpur','1234567891', 'sam@example.com')
+
 CREATE TABLE Doctors (
     DoctorId INT PRIMARY KEY,
     DoctorName VARCHAR(100) NOT NULL,
@@ -24,13 +21,10 @@ CREATE TABLE Doctors (
     Email VARCHAR(100) UNIQUE
 );
 
--- Insert dummy data into Doctors table
-INSERT INTO Doctors (DoctorId, DoctorName, Specialization, PhoneNumber, Email)
-VALUES 
-(1, 'Dr. Alice Johnson', 'Cardiology', '555-123-4567', 'alicejohnson@example.com'),
-(2, 'Dr. Bob Brown', 'Neurology', '555-987-6543', 'bobbrown@example.com');
 
--- Create the Appointments table
+INSERT INTO Doctors VALUES (1, 'Dr.Kundu', 'Cardiology', '9134567876', 'kundu@example.com')
+INSERT INTO Doctors VALUES (2, 'Dr.Dhawan', 'Neurology', '9087654532', 'dhawan@example.com')
+
 CREATE TABLE Appointments (
     AppointmentId INT PRIMARY KEY,
     AppointmentDate DATE,
@@ -42,13 +36,9 @@ CREATE TABLE Appointments (
     FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId) ON UPDATE CASCADE
 );
 
--- Insert dummy data into Appointments table
-INSERT INTO Appointments (AppointmentId, AppointmentDate, AppointmentTime, Status, PatientId, DoctorId)
-VALUES 
-(1, '2024-07-10', '10:00:00', 'scheduled', 1, 1),
-(2, '2024-07-11', '14:00:00', 'scheduled', 2, 2);
+INSERT INTO Appointments VALUES (1, '10/07/2024', '10:00:00', 'scheduled', 1, 1)
+INSERT INTO Appointments VALUES (2, '11/07/2024', '14:00:00', 'scheduled', 2, 2)
 
--- Create the MedicalRecords table
 CREATE TABLE MedicalRecords (
     RecordId INT PRIMARY KEY,
     DateOfVisit DATE NOT NULL,
@@ -58,17 +48,13 @@ CREATE TABLE MedicalRecords (
     FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId)
 );
 
--- Insert dummy data into MedicalRecords table
-INSERT INTO MedicalRecords (RecordId, DateOfVisit, PatientId, DoctorId)
-VALUES 
-(1, '2024-07-10', 1, 1),
-(2, '2024-07-11', 2, 2);
+INSERT INTO MedicalRecords VALUES (1, '10/07/2024', 1, 1)
+INSERT INTO MedicalRecords VALUES (2, '11/07/2024', 2, 2)
 
--- Create the Billing table
 CREATE TABLE Billing (
     BillId INT PRIMARY KEY,
     DateOfBilling DATE NOT NULL,
-    Amount DECIMAL(10, 2) NOT NULL,
+    Amount INT NOT NULL,
     PaymentStatus VARCHAR(20),
     PatientId INT,
     DoctorId INT,
@@ -76,29 +62,21 @@ CREATE TABLE Billing (
     FOREIGN KEY (PatientId) REFERENCES Patients(PatientId),
     FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId),
     FOREIGN KEY (AppointmentId) REFERENCES Appointments(AppointmentId)
-);
+)
 
--- Insert dummy data into Billing table
-INSERT INTO Billing (BillId, DateOfBilling, Amount, PaymentStatus, PatientId, DoctorId, AppointmentId)
-VALUES 
-(1, '2024-07-10', 200.00, 'paid', 1, 1, 1),
-(2, '2024-07-11', 150.00, 'pending', 2, 2, 2);
+INSERT INTO Billing VALUES (1, '10-07-2024', 200.00, 'paid', 1, 1, 1)
+INSERT INTO Billing VALUES (2, '11-07-2024', 150.00, 'pending', 2, 2, 2)
 
--- Create the Departments table
 CREATE TABLE Departments (
     DepartmentId INT PRIMARY KEY,
     DepartmentName VARCHAR(100) UNIQUE,
     DoctorId INT,
     FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId)
-);
+)
 
--- Insert dummy data into Departments table
-INSERT INTO Departments (DepartmentId, DepartmentName, DoctorId)
-VALUES 
-(1, 'Cardiology', 1),
-(2, 'Neurology', 2);
+INSERT INTO Departments VALUES (1, 'Cardiology', 1)
+INSERT INTO Departments VALUES (2, 'Neurology', 2)
 
--- Query to fetch records of all tables
 SELECT * FROM Patients;
 SELECT * FROM Doctors;
 SELECT * FROM Appointments;
